@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Catalog\Pricing\Price\BasePrice">
+        <plugin sortOrder="1" name="krakenCustomerGroupFixedPriceBasePrice"
+                type="Kraken\CustomerGroupFixedPrice\Plugin\Pricing\Price\BasePricePlugin"/>
+    </type>
+    <type name="Magento\Catalog\Pricing\Price\TierPrice">
+        <plugin sortOrder="1" name="krakenCustomerGroupFixedPriceTierPrice"
+                type="Kraken\CustomerGroupFixedPrice\Plugin\Pricing\Price\TierPricePlugin"/>
+    </type>
+</config>

@@ -1,0 +1,26 @@
+{
+    "name": "kraken/module-customer-group-fixed-price",
+    "description": "Allows an admin to specify a list of Customer Groups who will receive specific Tiered Pricing, even if that Tiered Pricing amount is higher than the normal product price",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "email": "info@mage2gen.com",
+            "name": "Mage2Gen"
+        },
+        {
+            "email": "erik@krakencommerce.com",
+            "name": "Erik Hansen"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Kraken\\CustomerGroupFixedPrice\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="catalog_product_get_final_price">
+		<observer instance="Kraken\CustomerGroupFixedPrice\Observer\Catalog\ProductGetFinalPrice" name="kraken_customergroupfixedprice_observer_catalog_productgetfinalprice_catalog_product_get_final_price"/>
+	</event>
+</config>

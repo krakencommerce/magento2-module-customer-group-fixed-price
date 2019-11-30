@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="krakenink" sortOrder="175" translate="label">
+			<label>Kraken</label>
+		</tab>
+		<section id="krakenink_general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1" translate="label">
+			<label>General</label>
+			<tab>krakenink</tab>
+			<resource>Kraken_CustomerGroupFixedPrice::config_kraken_customergroupfixedprice</resource>
+			<group id="customer_group_pricing" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>Customer Group Pricing</label>
+				<field id="customer_groups" showInDefault="1" sortOrder="10" translate="label" type="multiselect">
+					<label>Customer Groups</label>
+					<comment>The Customer Groups where pricing should be fixed the Tiered Pricing value for that Customer Group</comment>
+					<source_model>Magento\Customer\Model\Customer\Attribute\Source\Group</source_model>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>
