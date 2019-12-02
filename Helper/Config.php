@@ -10,7 +10,8 @@
 
 namespace Kraken\CustomerGroupFixedPrice\Helper;
 
-use Magento\Backend\Model\Session\Quote;
+use Magento\Backend\Model\Session\Quote as BackendQuote;
+use Magento\Checkout\Model\Session as FrontendQuote;
 use Magento\Customer\Model\Context;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -31,9 +32,14 @@ class Config
     protected $scopeConfig;
 
     /**
-     * @var Quote
+     * @var BackendQuote
      */
-    protected $quoteSession;
+    protected $backendQuoteSession;
+
+    /**
+     * @var FrontendQuote
+     */
+    protected $frontendQuoteSession;
 
     /**
      * @var \Magento\Framework\App\Http\Context
@@ -54,18 +60,21 @@ class Config
      * Config constructor.
      * @param ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\App\Http\Context $httpContext
-     * @param Quote $quoteSession
+     * @param BackendQuote $backendQuoteSession
+     * @param FrontendQuote $frontendQuoteSession
      * @param State $state
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         \Magento\Framework\App\Http\Context $httpContext,
-        Quote $quoteSession,
+        BackendQuote $backendQuoteSession,
+        FrontendQuote $frontendQuoteSession,
         State $state
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->httpContext = $httpContext;
-        $this->quoteSession = $quoteSession;
+        $this->backendQuoteSession = $backendQuoteSession;
+        $this->frontendQuoteSession = $frontendQuoteSession;
         $this->state = $state;
     }
 
@@ -88,13 +97,22 @@ class Config
     protected function getCurrentCustomerGroup()
     {
         $customerGroupId = $this->httpContext->getValue(Context::CONTEXT_GROUP);
+
+        if (
+            !$customerGroupId
+            && $this->frontendQuoteSession->getQuoteId()
+            && $this->state->getAreaCode() != Area::AREA_ADMINHTML
+        ) {
+            $customerGroupId = $this->frontendQuoteSession->getQuote()->getCustomerGroupId();
+        }
+
         // Only run this code if there is an active admin quote
         if (
             !$customerGroupId
-            && $this->quoteSession->getQuoteId()
+            && $this->backendQuoteSession->getQuoteId()
             && $this->state->getAreaCode() == Area::AREA_ADMINHTML
         ) {
-            $customerGroupId = $this->quoteSession->getQuote()->getCustomerGroupId();
+            $customerGroupId = $this->backendQuoteSession->getQuote()->getCustomerGroupId();
         }
 
         return $customerGroupId;
