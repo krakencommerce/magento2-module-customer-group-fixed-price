@@ -34,6 +34,7 @@ class ProductGetFinalPrice implements \Magento\Framework\Event\ObserverInterface
      *
      * @param \Magento\Framework\Event\Observer $observer
      * @return void
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function execute(
         \Magento\Framework\Event\Observer $observer
@@ -45,7 +46,7 @@ class ProductGetFinalPrice implements \Magento\Framework\Event\ObserverInterface
         $fixedPrice = $this->config->getCustomerGroupFixedPrice($product, $qty);
 
         if ($fixedPrice) {
-            $product->setFinalPrice($fixedPrice);
+            $product->setData('final_price', $fixedPrice);
             $product->setData('final_price_fixed_customer_group_price', $fixedPrice);
         }
 

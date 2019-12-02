@@ -32,6 +32,7 @@ class BasePricePlugin
      * @param BasePrice $subject
      * @param callable $proceed
      * @return float|null
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function aroundGetValue(BasePrice $subject, callable $proceed)
     {
