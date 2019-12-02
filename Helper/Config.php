@@ -155,7 +155,18 @@ class Config
 
         // Avoid using the getTierPrices method since it will cause a load of the tiered pricing if it doesn't exist
         $tierPrices = $product->getData('tier_price');
-        $isCurrentCustomerFixedCustomerGroup = $this->isCurrentCustomerFixedCustomerGroup();
+
+        if (!is_array($tierPrices) || !count($tierPrices)) {
+            /**
+             * This method loads Tiered Prices, since they are not already loaded. Unfortunately this creates and N+1
+             * unoptimized query (loading in a loop). However it's the simplest approach to implementing this. With
+             * full_page and block_html disabled, it adds about 2% to the loading of a product listing page with 32
+             * products (testing was done with full_page and block_html caches disabeld). Since so few customers will
+             * fall within the "Fixed" customer group, this performance implication is acceptable.
+             */
+            $product->getTierPrices();
+            $tierPrices = $product->getData('tier_price');
+        }
 
         $tierPricesForCustomerGroup = [];
         if (is_array($tierPrices) && $isCurrentCustomerFixedCustomerGroup) {
