@@ -139,6 +139,12 @@ class Config
      */
     public function getCustomerGroupFixedPrice(SaleableInterface $product, $qty = 1)
     {
+        $isCurrentCustomerFixedCustomerGroup = $this->isCurrentCustomerFixedCustomerGroup();
+
+        if (!$isCurrentCustomerFixedCustomerGroup) {
+            return null;
+        }
+
         $cacheKey = $product->getSku() . '_' . (float)$qty;
         if (isset($this->productCache[$cacheKey])) {
             // Prevent from returning the 'false' value set earlier
