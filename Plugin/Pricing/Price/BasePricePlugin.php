@@ -38,7 +38,9 @@ class BasePricePlugin
         $fixedPrice = $this->config->getCustomerGroupFixedPrice($subject->getProduct());
 
         if ($fixedPrice) {
-            return $fixedPrice;
+            // Fix issue where custom options with price changes were not having any effect on the product detail page
+            $roundedFixedPrice = round($fixedPrice, 2);
+            return $roundedFixedPrice;
         }
 
         return $proceed();
