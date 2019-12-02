@@ -1,0 +1,21 @@
+Index: Plugin/AroundGetBasePrice.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Plugin/AroundGetBasePrice.php	(date 1575326428083)
++++ Plugin/AroundGetBasePrice.php	(date 1575326428083)
+@@ -66,7 +66,12 @@
+         $totalPrice = 0;
+         $this->eventManager->dispatch('catalog_product_get_final_price', ['product' => $product, 'qty' => $qty]);
+ 
+-        $basePrice = min($product->getData('final_price'), $subject->getBasePrice($product, $qty));
++        // BEGIN EDIT - Support the price set by the Kraken_CustomerGroupFixedPrice extension
++        $basePrice = $product->getData('final_price_fixed_customer_group_price');
++        if (!$basePrice) {
++            $basePrice = min($product->getData('final_price'), $subject->getBasePrice($product, $qty));
++        }
++        // END EDIT
+         $optionIds = $product->getCustomOption('option_ids');
+         foreach (explode(',', $optionIds->getValue()) as $optionId) {
+             /** @var \Magento\Catalog\Model\Product\Option $option */

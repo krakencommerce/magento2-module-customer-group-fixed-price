@@ -46,6 +46,7 @@ class ProductGetFinalPrice implements \Magento\Framework\Event\ObserverInterface
 
         if ($fixedPrice) {
             $product->setFinalPrice($fixedPrice);
+            $product->setData('final_price_fixed_customer_group_price', $fixedPrice);
         }
 
         return;
