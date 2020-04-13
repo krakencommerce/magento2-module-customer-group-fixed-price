@@ -172,7 +172,7 @@ class Config
         if (is_array($tierPrices) && $isCurrentCustomerFixedCustomerGroup) {
             foreach ($tierPrices as $tierPrice) {
                 if (
-                    in_array($tierPrice['cust_group'], $this->getCustomerGroups())
+                    $tierPrice['cust_group'] == $this->getCurrentCustomerGroup()
                     && $tierPrice['website_price'] > 0
                     && $qty >= $tierPrice['price_qty']
                 ) {
