@@ -20,26 +20,6 @@ If a customer in one of the selected Customer Groups is viewing a product:
 
 ## Installation Instructions
 
-If you're using MageWorx Advanced Product Options, apply the patch in `patches/` to the `mageworx/module-optionfeatures` module using the `composer-patches` plugin. More details on how to do that [here](https://www.classyllama.com/blog/create-apply-patches-magento-2).
-
-The reason we applied this change as a patch instead of a `preference` is that is prevents us from copying forward multiple core methods into this plugin.
-
-Snippet of what your `composer.json` file should look like after you apply the patch:
-```
-    "extra": {
-        "magento-force": "override",
-        "composer-exit-on-patch-failure": true,
-        "patches": {
-            "mageworx/module-optionfeatures": {
-                "Display MSRP prices in addition to other prices": "vendor/kraken/module-customer-group-fixed-price/patches/mageworx-module-optionfeatures-support.patch"
-            }
-        }
-    }
-```
-
-After you do the above, ensure the `vendor/mageworx/module-optionfeatures/Plugin/AroundGetBasePrice.php` file has the changes in the patch file.
-
-
 ### Option 1 - Install extension using Composer (default approach)
 
 ```bash
