@@ -42,6 +42,11 @@ class Config
     protected $frontendQuoteSession;
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $customerSession;
+
+    /**
      * @var \Magento\Framework\App\Http\Context
      */
     protected $httpContext;
@@ -69,12 +74,14 @@ class Config
         \Magento\Framework\App\Http\Context $httpContext,
         BackendQuote $backendQuoteSession,
         FrontendQuote $frontendQuoteSession,
+        \Magento\Customer\Model\Session $customerSession,
         State $state
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->httpContext = $httpContext;
         $this->backendQuoteSession = $backendQuoteSession;
         $this->frontendQuoteSession = $frontendQuoteSession;
+        $this->customerSession = $customerSession;
         $this->state = $state;
     }
 
@@ -100,10 +107,9 @@ class Config
 
         if (
             !$customerGroupId
-            && $this->frontendQuoteSession->getQuoteId()
             && $this->state->getAreaCode() != Area::AREA_ADMINHTML
         ) {
-            $customerGroupId = $this->frontendQuoteSession->getQuote()->getCustomerGroupId();
+            $customerGroupId = $this->customerSession->getCustomerGroupId();
         }
 
         // Only run this code if there is an active admin quote
