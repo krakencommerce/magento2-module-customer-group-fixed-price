@@ -3,4 +3,8 @@
 	<event name="catalog_product_get_final_price">
 		<observer instance="Kraken\CustomerGroupFixedPrice\Observer\Catalog\ProductGetFinalPrice" name="kraken_customergroupfixedprice_observer_catalog_productgetfinalprice_catalog_product_get_final_price"/>
 	</event>
+
+    <event name="admin_system_config_changed_section_krakenink_general">
+        <observer name="custom_admin_system_config_changed_section_krakenink_general" instance="Kraken\CustomerGroupFixedPrice\Observer\Config\InvalidateIndex"/>
+    </event>
 </config>
