@@ -1,9 +1,5 @@
 # Kraken CustomerGroupFixedPrice Extension
 
-## Known Issues
-
-* After upgrading from Magento 2.3.2 to 2.3.4-p2, this extension no longer shows the higher price on product listing/search pages. There are no immediate plans to fix this, as it's not a required use case for how Kraken is using it.
-
 ## Description
 
 Allows an admin to specify a list of Customer Groups who will receive specific Tiered Pricing, even if that Tiered Pricing amount is higher than the normal product price.
