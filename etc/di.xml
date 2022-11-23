@@ -9,4 +9,12 @@
         <plugin sortOrder="1" name="krakenCustomerGroupFixedPriceTierPrice"
                 type="Kraken\CustomerGroupFixedPrice\Plugin\Pricing\Price\TierPricePlugin"/>
     </type>
+
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Indexer\Price\BasePriceModifier">
+        <arguments>
+            <argument name="priceModifiers" xsi:type="array">
+                <item name="krakenCustomerGroupFixedPriceModifier" xsi:type="object">Kraken\CustomerGroupFixedPrice\Model\Indexer\ProductPriceIndexModifier</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
