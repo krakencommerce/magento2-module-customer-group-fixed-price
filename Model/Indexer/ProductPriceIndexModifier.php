@@ -49,7 +49,7 @@ class ProductPriceIndexModifier implements PriceModifierInterface
         $connection = $this->getConnection();
 
         $where = [
-            $priceTable->getEntityField() . ' IN (?)' => array_keys($entityIds),
+            $priceTable->getEntityField() . ' IN (?)' => $entityIds,
             $priceTable->getCustomerGroupField() . ' IN (?)' => $this->config->getCustomerGroups(),
             $priceTable->getTierPriceField() . ' > ' . $priceTable->getOriginalPriceField(),
             $priceTable->getTierPriceField() . ' IS NOT NULL '
